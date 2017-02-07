@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
+        /* reference: http://stackoverflow.com/questions/21724420/how-to-hide-navigation-bar-permanently-in-android-activity */
+
         // make app full screen
         final int flags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
