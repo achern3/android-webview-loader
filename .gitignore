@@ -1,3 +1,7 @@
+# HTML and CSS files
+*.html
+*.css
+
 # Built application files
 *.apk
 *.ap_
@@ -34,7 +38,7 @@ captures/
 
 # Intellij
 *.iml
-.idea/workspace.xml
+.idea/
 
 # Keystore files
 *.jks
