@@ -1,0 +1,6 @@
+# Local HTML and CSS
+local/*.html
+local/*.css
+
+# Test jpgs
+screen_saver_images/*.jpg
