@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -12,8 +13,7 @@
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
             android:name=".MainActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="landscape">
+            android:configChanges="orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,8 +23,17 @@
 
         <activity
             android:name=".ScreenSaverActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="landscape" />
+            android:configChanges="orientation" />
+
+        <activity
+            android:name=".RestartActivity"
+            android:configChanges="orientation">
+            <intent-filter>
+                <action android:name=".RESTART_ACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
