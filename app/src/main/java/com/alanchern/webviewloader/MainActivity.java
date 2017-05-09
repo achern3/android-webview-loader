@@ -48,6 +48,10 @@ public class MainActivity extends BaseActivity {
     private void init() {
         mWebView = (WebView) findViewById(R.id.web_view);
         mWebView.setWebViewClient(new WebViewClient());
+
+        mWebView.getSettings().setBuiltInZoomControls(true);
+        mWebView.getSettings().setDisplayZoomControls(false);
+
         loadMainPage();
 
         mTimerRunnable = new Runnable() {

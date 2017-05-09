@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,6 +25,11 @@ public class ScreenSaverActivity extends BaseActivity {
     /*** control duration of each screen saver image ***/
     private static final int DURATION = 5; // seconds
 
+    /*** image urls ***/
+    private static final String[] urlArray = {"https://scontent-hkg3-1.xx.fbcdn.net/v/t1.0-9/11140317_1140894485924623_737005933379357626_n.jpg?oh=02190048332c4b84240f07015a1a9eb1&oe=598EDBF0",
+            "http://farm3.static.flickr.com/2500/4263017598_2c8b74e749.jpg",
+            "http://farm5.static.flickr.com/4017/4370647903_df672a8171.jpg"};
+
     private Handler mLoadImageHandler = new Handler();
     private Runnable mLoadImageRunnable;
 
@@ -31,10 +38,35 @@ public class ScreenSaverActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_screen_saver);
 
-        init();
+        loadServerImages();
     }
 
-    private void init() {
+    private void loadServerImages() {
+        final ImageView imageView = (ImageView) findViewById(R.id.image_view);
+
+        mLoadImageRunnable = new Runnable() {
+            private int count = 0;
+
+            @Override
+            public void run() {
+                if (urlArray.length > 0) {
+                    Glide.with(ScreenSaverActivity.this).load(urlArray[count]).into(imageView);
+
+                    if (count == urlArray.length - 1) {
+                        count = 0;
+                    } else {
+                        count++;
+                    }
+                } else {
+                    loadLocalImages();
+                }
+            }
+        };
+
+        mLoadImageHandler.post(mLoadImageRunnable);
+    }
+
+    private void loadLocalImages() {
         final ImageView imageView = (ImageView) findViewById(R.id.image_view);
 
         try {
