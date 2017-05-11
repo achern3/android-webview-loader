@@ -1,6 +1,8 @@
 package com.alanchern.webviewloader;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.webkit.WebView;
@@ -68,12 +70,19 @@ public class MainActivity extends BaseActivity {
 
     private void loadMainPage() {
         if (mWebView != null) {
-            // load website
-            mWebView.loadUrl(MAIN_PAGE);
-
-            // load local html file
-            // mWebView.loadUrl(LOCAL_PAGE);
+            if (isNetworkAvailable()) {
+                // load website
+                mWebView.loadUrl(MAIN_PAGE);
+            } else {
+                // load local html file
+                mWebView.loadUrl(LOCAL_PAGE);
+            }
         }
+    }
+
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = ((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE));
+        return (connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected());
     }
 
     @Override
