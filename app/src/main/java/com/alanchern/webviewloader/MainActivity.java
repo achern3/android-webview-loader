@@ -21,7 +21,7 @@ public class MainActivity extends BaseActivity {
     private static final String LOCAL_PAGE = "file:///android_asset/local/floor.html";
 
     /*** control inactive time before showing screen saver ***/
-    private static final int TIMEOUT = 10; // seconds
+    private static final int TIMEOUT = 40; // seconds
 
     private Button mHomeButton;
     private WebView mWebView;

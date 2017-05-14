@@ -29,7 +29,7 @@ public class ScreenSaverActivity extends BaseActivity {
     private static final String DEFAULT_PATH = "default_image";
 
     /*** control duration of each screen saver image ***/
-    private static final int DURATION = 5; // seconds
+    private static final int DURATION = 20; // seconds
 
     /*** server directory link ***/
     private static final String SERVER_DIRECTORY = "http://ocic.nthu.edu.tw/kiosk/";
