@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.signature.StringSignature;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,11 +36,6 @@ public class ScreenSaverActivity extends BaseActivity {
 
     /*** number of images inside server directory ***/
     private static final int NUM_IMAGES = 9;
-
-    /*** image urls ***/
-    private static final String[] urlArray = {"https://scontent-hkg3-1.xx.fbcdn.net/v/t1.0-9/11140317_1140894485924623_737005933379357626_n.jpg?oh=02190048332c4b84240f07015a1a9eb1&oe=598EDBF0",
-            "http://farm3.static.flickr.com/2500/4263017598_2c8b74e749.jpg",
-            "http://farm5.static.flickr.com/4017/4370647903_df672a8171.jpg"};
 
     private Handler mLoadImageHandler = new Handler();
     private Runnable mLoadImageRunnable;
@@ -65,14 +61,18 @@ public class ScreenSaverActivity extends BaseActivity {
                     Log.d(TAG, "image invisible");
 
                     String imageUrl = SERVER_DIRECTORY + count + ".jpg";
-                    Glide.with(ScreenSaverActivity.this).load(imageUrl).asBitmap().into(new SimpleTarget<Bitmap>() {
-                        @Override
-                        public void onResourceReady(Bitmap bitmap, GlideAnimation<? super Bitmap> glideAnimation) {
-                            imageView.setImageBitmap(bitmap);
-                            imageView.setVisibility(View.VISIBLE);
-                            Log.d(TAG, "current count: " + count);
-                        }
-                    });
+                    Glide.with(ScreenSaverActivity.this)
+                            .load(imageUrl)
+                            .asBitmap()
+                            .signature(new StringSignature(String.valueOf(System.currentTimeMillis())))
+                            .into(new SimpleTarget<Bitmap>() {
+                                @Override
+                                public void onResourceReady(Bitmap bitmap, GlideAnimation<? super Bitmap> glideAnimation) {
+                                    imageView.setImageBitmap(bitmap);
+                                    imageView.setVisibility(View.VISIBLE);
+                                    Log.d(TAG, "current count: " + count);
+                                }
+                            });
 
                     if (count == NUM_IMAGES) {
                         count = 1;
