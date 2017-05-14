@@ -5,22 +5,25 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 
 public class MainActivity extends BaseActivity {
     /*** screen saver images need to go into 'assets/screen_saver_images' folder ***/
     /*** local html/css files need to go into 'assets/local' folder ***/
 
     /*** control main page url ***/
-    private static final String MAIN_PAGE = "http://google.com";
+    private static final String MAIN_PAGE = "http://ocic.nthu.edu.tw/cii/floor_guide.html";
 
     /*** control local html file ***/
     private static final String LOCAL_PAGE = "file:///android_asset/local/floor.html";
 
     /*** control inactive time before showing screen saver ***/
-    private static final int TIMEOUT = 60; // seconds
+    private static final int TIMEOUT = 10; // seconds
 
+    private Button mHomeButton;
     private WebView mWebView;
     private Handler mTimerHandler = new Handler();
     private Runnable mTimerRunnable;
@@ -48,6 +51,16 @@ public class MainActivity extends BaseActivity {
     }
 
     private void init() {
+        mHomeButton = (Button) findViewById(R.id.home_button);
+        mHomeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                while (mWebView != null && mWebView.canGoBack()) {
+                    mWebView.goBack();
+                }
+            }
+        });
+
         mWebView = (WebView) findViewById(R.id.web_view);
         mWebView.setWebViewClient(new WebViewClient());
 
