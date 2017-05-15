@@ -5,4 +5,5 @@
     <string name="recovering_from_crash">Recovering from crash&#8230;</string>
     <string name="app_crashed_restart">App crashed, do you want to restart it?</string>
     <string name="home">HOME</string>
+    <string name="cannot_read_pdf">Cannot read PDF file.</string>
 </resources>

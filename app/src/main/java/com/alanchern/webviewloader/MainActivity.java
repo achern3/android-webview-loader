@@ -2,13 +2,16 @@ package com.alanchern.webviewloader;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends BaseActivity {
     /*** screen saver images need to go into 'assets/screen_saver_images' folder ***/
@@ -62,7 +65,7 @@ public class MainActivity extends BaseActivity {
         });
 
         mWebView = (WebView) findViewById(R.id.web_view);
-        mWebView.setWebViewClient(new WebViewClient());
+        mWebView.setWebViewClient(new CustomClient());
 
         mWebView.getSettings().setBuiltInZoomControls(true);
         mWebView.getSettings().setDisplayZoomControls(false);
@@ -112,5 +115,23 @@ public class MainActivity extends BaseActivity {
             mWebView.goBack();
         }
         // super.onBackPressed();
+    }
+
+    private class CustomClient extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            if (url.endsWith(".pdf")) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setDataAndType(Uri.parse(url), "application/pdf");
+                PackageManager packageManager = getPackageManager();
+                if (intent.resolveActivity(packageManager) != null) {
+                    startActivity(intent);
+                    return true;
+                } else {
+                    Toast.makeText(MainActivity.this, getString(R.string.cannot_read_pdf), Toast.LENGTH_SHORT).show();
+                }
+            }
+            return super.shouldOverrideUrlLoading(view, url);
+        }
     }
 }
